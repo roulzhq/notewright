@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 export const envSchema = z.object({
   DATABASE_URL: z.string().url(),
@@ -7,8 +7,8 @@ export const envSchema = z.object({
 
   // Others
   NODE_ENV: z
-    .enum(["development", "test", "production"])
-    .default("development"),
+    .enum(['development', 'test', 'production'])
+    .default('development'),
 });
 
 type Env = z.infer<typeof envSchema>;

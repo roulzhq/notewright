@@ -1,13 +1,13 @@
-"use server";
+'use server';
 
-import { redirect } from "next/navigation";
+import { redirect } from 'next/navigation';
 
-import { createClient } from "$/utils/supabase/server";
+import { createClient } from '$/utils/supabase/server';
 
-export async function logout(formData: FormData) {
+export async function logout(_: FormData) {
   const supabase = await createClient();
 
   await supabase.auth.signOut();
 
-  redirect("/");
+  redirect('/');
 }

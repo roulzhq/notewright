@@ -1,11 +1,11 @@
-"use server";
+'use server';
 import {
   PrismaClient,
   type Prisma,
   type Post,
   type User,
   type Blog,
-} from "@prisma/client";
+} from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -14,7 +14,7 @@ export async function createPost(
   content: string,
   createdBy: User,
   blog: Blog,
-  published: boolean
+  published: boolean,
 ) {
   const post: Prisma.PostCreateInput = {
     title,
@@ -31,7 +31,7 @@ export async function createPost(
   const createPost = await prisma.post.create({ data: post });
 }
 
-export async function getAllPosts(blog: Blog["id"]) {
+export async function getAllPosts(blog: Blog['id']) {
   const post = await prisma.post.findMany({
     where: {
       id: blog,
@@ -41,7 +41,7 @@ export async function getAllPosts(blog: Blog["id"]) {
   return post;
 }
 
-export async function getPostById(postId: Post["id"]) {
+export async function getPostById(postId: Post['id']) {
   const post = await prisma.post.findUnique({
     where: {
       id: postId,
@@ -52,10 +52,10 @@ export async function getPostById(postId: Post["id"]) {
 }
 
 export async function updatePost(
-  postId: Post["id"],
+  postId: Post['id'],
   published?: boolean,
   title?: string,
-  content?: string
+  content?: string,
 ) {
   const dateNow: Date = new Date();
 
@@ -74,7 +74,7 @@ export async function updatePost(
   return post;
 }
 
-export async function removePost(postId: Post["id"]) {
+export async function removePost(postId: Post['id']) {
   const post = await prisma.post.delete({
     where: {
       id: postId,

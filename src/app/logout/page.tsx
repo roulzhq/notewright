@@ -1,4 +1,4 @@
-import { logout } from "./actions";
+import { logout } from './actions';
 
 export default function Logout() {
   return (
