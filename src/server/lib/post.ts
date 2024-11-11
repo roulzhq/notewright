@@ -3,6 +3,16 @@ import { PrismaClient, type Prisma, type Post, type User, type Blog } from "@pri
 
 const prisma = new PrismaClient();
 
+/**
+ * Creates a new blog post in the database.
+ * 
+ * @param title - The title of the blog post.
+ * @param content - The content of the blog post.
+ * @param createdBy - The user who created the post.
+ * @param blog - The blog to which the post belongs.
+ * @param published - A boolean indicating whether the post is published or not.
+ * @returns A Promise that resolves when the post is created. The created post is not returned.
+ */
 export async function createPost(title: string, content: string, createdBy: User, blog: Blog, published: boolean){
     const post: Prisma.PostCreateInput = {
         title,
@@ -17,6 +27,8 @@ export async function createPost(title: string, content: string, createdBy: User
     }
 
     const createPost = await prisma.post.create({ data: post });
+
+    return createPost.id;
 }
 
 export async function getAllPosts(blog: Blog["id"]){
