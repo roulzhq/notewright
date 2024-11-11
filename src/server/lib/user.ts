@@ -1,18 +1,18 @@
 'use server';
 import { PrismaClient, type User } from '@prisma/client';
 
-export async function create() {
+export async function createUser() {
   console.log();
 }
 
-export async function read() {
+export async function readUser() {
   console.log();
 }
 
-export async function update() {
+export async function updateUser() {
   console.log();
 }
 
-export async function remove() {
+export async function removeUser() {
   console.log();
 }

@@ -3,18 +3,18 @@ import { PrismaClient, type Prisma, type Comment } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-export async function create() {
+export async function createComment() {
   console.log();
 }
 
-export async function read() {
+export async function readCommentFromPost() {
   console.log();
 }
 
-export async function update() {
+export async function updateComment() {
   console.log();
 }
 
-export async function remove() {
+export async function removeComment() {
   console.log();
 }

@@ -31,14 +31,18 @@ export async function createUserBlogRole(
   return createUserBlogRole.id;
 }
 
-export async function read() {
+export async function readAllUserBlogRolesFromUser() {
   console.log();
 }
 
-export async function update() {
+export async function readAllUserBlogRolesFromBlog() {
   console.log();
 }
 
-export async function remove() {
+export async function updateUserBlogRole() {
+  console.log();
+}
+
+export async function removeUserBlogRole() {
   console.log();
 }
