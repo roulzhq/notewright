@@ -1,5 +1,7 @@
 'use server';
-import { PrismaClient, type Comment } from '@prisma/client';
+import { PrismaClient, type Prisma, type Comment } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 export async function create() {
   console.log();
