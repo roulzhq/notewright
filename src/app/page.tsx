@@ -1,5 +1,3 @@
-import { redirect } from 'next/navigation';
-
 export default function Index() {
-  redirect('/blog');
+  return <h1>Public</h1>;
 }
