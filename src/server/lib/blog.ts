@@ -23,8 +23,14 @@ export async function createBlog(name: string, published: boolean, user: User) {
   return createBlog.id;
 }
 
-export async function read() {}
+export async function read() {
+  console.log();
+}
 
-export async function update() {}
+export async function update() {
+  console.log();
+}
 
-export async function remove() {}
+export async function remove() {
+  console.log();
+}
