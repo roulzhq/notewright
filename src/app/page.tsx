@@ -1,3 +1,5 @@
-export default function Home() {
-  return <main>Hello</main>;
+import { redirect } from "next/navigation";
+
+export default function Index() {
+  redirect("/blog");
 }
