@@ -29,7 +29,11 @@ export async function createBlog(
 
   const createdBlog = await prisma.blog.create({ data: blog });
 
-  await createUserBlogRole(createdBlog, 'OWNER', user);
+  await createUserBlogRole({
+    blog: { id: createdBlog.id },
+    role: 'OWNER',
+    user: { id: user.id },
+  });
 
   return createdBlog.id;
 }

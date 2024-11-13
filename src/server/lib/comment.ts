@@ -2,7 +2,6 @@
 import { PrismaClient, type Prisma, type Comment } from '@prisma/client';
 
 const prisma = new PrismaClient();
-
 export async function createComment(
   data: Prisma.CommentCreateInput,
 ): Promise<Comment> {

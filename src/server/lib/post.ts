@@ -19,31 +19,15 @@ const prisma = new PrismaClient();
  * @param published - A boolean indicating whether the post is published or not.
  * @returns A Promise that resolves when the post is created. The created post is not returned.
  */
-export async function createPost(
-  title: string,
-  content: string,
-  createdBy: User,
-  blog: Blog,
-  published: boolean,
-) {
-  const post: Prisma.PostCreateInput = {
-    title,
-    content,
-    createdBy: {
-      connect: { id: createdBy.id },
-    },
-    blog: {
-      connect: { id: blog.id },
-    },
-    published,
-  };
+export async function createPost(data: Prisma.PostCreateInput): Promise<Post> {
+  const createPost = await prisma.post.create({
+    data,
+  });
 
-  const createPost = await prisma.post.create({ data: post });
-
-  return createPost.id;
+  return createPost;
 }
 
-export async function getAllPosts(blog: Blog['id']) {
+export async function getAllPosts(blog: Blog['id']): Promise<Post[]> {
   const post = await prisma.post.findMany({
     where: {
       id: blog,
@@ -53,7 +37,7 @@ export async function getAllPosts(blog: Blog['id']) {
   return post;
 }
 
-export async function getPostById(postId: Post['id']) {
+export async function getPostById(postId: Post['id']): Promise<Post | null> {
   const post = await prisma.post.findUnique({
     where: {
       id: postId,
@@ -65,28 +49,19 @@ export async function getPostById(postId: Post['id']) {
 
 export async function updatePost(
   postId: Post['id'],
-  published?: boolean,
-  title?: string,
-  content?: string,
-) {
+  data: Prisma.PostUpdateInput,
+): Promise<Post | null> {
   const dateNow: Date = new Date();
 
   const post = await prisma.post.update({
-    where: {
-      id: postId,
-    },
-    data: {
-      published,
-      title,
-      content,
-      updatedAt: dateNow,
-    },
+    where: { id: postId },
+    data,
   });
 
   return post;
 }
 
-export async function removePost(postId: Post['id']) {
+export async function removePost(postId: Post['id']): Promise<Post | null> {
   const post = await prisma.post.delete({
     where: {
       id: postId,
