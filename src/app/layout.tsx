@@ -1,6 +1,8 @@
-import '$/styles/globals.scss';
-
 import { type Metadata } from 'next';
+
+import Providers from '$/app/providers';
+
+import '$/styles/globals.scss';
 
 export const metadata: Metadata = {
   title: 'Create T3 App',
@@ -8,12 +10,12 @@ export const metadata: Metadata = {
   icons: [{ rel: 'icon', url: '/favicon.ico' }],
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }

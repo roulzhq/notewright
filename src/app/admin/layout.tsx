@@ -11,9 +11,7 @@ export const metadata: Metadata = {
   icons: [{ rel: 'icon', url: '/favicon.ico' }],
 };
 
-export default function AdminLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function AdminLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <div className="admin">
       <AdminSidebar />

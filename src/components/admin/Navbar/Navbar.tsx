@@ -1,5 +1,7 @@
 import { createClient } from '$/utils/supabase/server';
 
+import './Navbar.scss';
+
 export default async function AdminNavbar() {
   const supabase = await createClient();
 
