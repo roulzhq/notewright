@@ -1,11 +1,5 @@
 'use server';
-import {
-  PrismaClient,
-  type Prisma,
-  type Blog,
-  type User,
-  type UserBlogRole,
-} from '@prisma/client';
+import { PrismaClient, type Prisma, type Blog, type User, type UserBlogRole } from '@prisma/client';
 import { createUserBlogRole } from './userBlogRole';
 
 const prisma = new PrismaClient();
@@ -22,9 +16,3 @@ export async function createBlog(name: string, published: boolean, user: User) {
 
   return createBlog.id;
 }
-
-export async function read() {}
-
-export async function update() {}
-
-export async function remove() {}
