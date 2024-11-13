@@ -14,5 +14,21 @@ export async function createUserBlogRole(blog: Blog, role: UserBlogRole['role'],
     },
   };
 
-  const createUserBlogRole = await prisma.userBlogRole.create({ data: userBlogRole });
+  const createUserBlogRole = await prisma.userBlogRole.create({
+    data: userBlogRole,
+  });
+
+  return createUserBlogRole.id;
+}
+
+export async function read() {
+  console.log();
+}
+
+export async function update() {
+  console.log();
+}
+
+export async function remove() {
+  console.log();
 }
