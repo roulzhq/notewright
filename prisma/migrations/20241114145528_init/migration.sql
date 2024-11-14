@@ -1,6 +1,3 @@
--- CreateSchema
-CREATE SCHEMA IF NOT EXISTS "auth";
-
 -- CreateEnum
 CREATE TYPE "public"."Role" AS ENUM ('USER', 'MODERATOR', 'AUTHOR', 'ADMIN', 'OWNER');
 
@@ -26,13 +23,11 @@ CREATE TABLE "public"."posts" (
 );
 
 -- CreateTable
-CREATE TABLE "auth"."users" (
+CREATE TABLE "public"."users" (
     "id" TEXT NOT NULL,
     "firstName" TEXT NOT NULL,
     "lastName" TEXT NOT NULL,
     "email" TEXT NOT NULL,
-    "emailVerified" TIMESTAMP(3),
-    "password" TEXT NOT NULL,
     "image" TEXT,
     "plan" "public"."Plan" NOT NULL DEFAULT 'FREE',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -78,10 +73,10 @@ CREATE TABLE "public"."user_blog_roles" (
 CREATE INDEX "posts_createdById_createdAt_idx" ON "public"."posts"("createdById", "createdAt" DESC);
 
 -- CreateIndex
-CREATE UNIQUE INDEX "users_email_key" ON "auth"."users"("email");
+CREATE UNIQUE INDEX "users_email_key" ON "public"."users"("email");
 
 -- CreateIndex
-CREATE INDEX "users_email_createdAt_idx" ON "auth"."users"("email", "createdAt" DESC);
+CREATE INDEX "users_email_createdAt_idx" ON "public"."users"("email", "createdAt" DESC);
 
 -- CreateIndex
 CREATE INDEX "blogs_name_createdAt_idx" ON "public"."blogs"("name", "createdAt" DESC);
@@ -90,7 +85,7 @@ CREATE INDEX "blogs_name_createdAt_idx" ON "public"."blogs"("name", "createdAt" 
 CREATE UNIQUE INDEX "user_blog_roles_userId_blogId_key" ON "public"."user_blog_roles"("userId", "blogId");
 
 -- AddForeignKey
-ALTER TABLE "public"."posts" ADD CONSTRAINT "posts_createdById_fkey" FOREIGN KEY ("createdById") REFERENCES "auth"."users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "public"."posts" ADD CONSTRAINT "posts_createdById_fkey" FOREIGN KEY ("createdById") REFERENCES "public"."users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "public"."posts" ADD CONSTRAINT "posts_blogId_fkey" FOREIGN KEY ("blogId") REFERENCES "public"."blogs"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -99,10 +94,10 @@ ALTER TABLE "public"."posts" ADD CONSTRAINT "posts_blogId_fkey" FOREIGN KEY ("bl
 ALTER TABLE "public"."comments" ADD CONSTRAINT "comments_postId_fkey" FOREIGN KEY ("postId") REFERENCES "public"."posts"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "public"."comments" ADD CONSTRAINT "comments_createdById_fkey" FOREIGN KEY ("createdById") REFERENCES "auth"."users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "public"."comments" ADD CONSTRAINT "comments_createdById_fkey" FOREIGN KEY ("createdById") REFERENCES "public"."users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "public"."user_blog_roles" ADD CONSTRAINT "user_blog_roles_userId_fkey" FOREIGN KEY ("userId") REFERENCES "auth"."users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "public"."user_blog_roles" ADD CONSTRAINT "user_blog_roles_userId_fkey" FOREIGN KEY ("userId") REFERENCES "public"."users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "public"."user_blog_roles" ADD CONSTRAINT "user_blog_roles_blogId_fkey" FOREIGN KEY ("blogId") REFERENCES "public"."blogs"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

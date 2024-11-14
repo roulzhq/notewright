@@ -3,14 +3,14 @@
 
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["multiSchema"]
+  previewFeatures = ["multiSchema", "prismaSchemaFolder"]
 }
 
 datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
   directUrl = env("DATABASE_DIRECT_URL")
-  schemas   = ["public", "auth"]
+  schemas   = ["public"]
 }
 
 model Post {
@@ -35,24 +35,22 @@ model Post {
 }
 
 model User {
-  id            String         @id @default(cuid())
-  firstName     String
-  lastName      String
-  email         String         @unique
-  emailVerified DateTime?
-  password      String
-  image         String?
-  posts         Post[]
-  blogRoles     UserBlogRole[]
-  comments      Comment[]
-  plan          Plan           @default(FREE)
+  id        String         @id @default(cuid())
+  firstName String
+  lastName  String
+  email     String         @unique
+  image     String?
+  posts     Post[]
+  blogRoles UserBlogRole[]
+  comments  Comment[]
+  plan      Plan           @default(FREE)
 
   createdAt DateTime  @default(now())
   deletedAt DateTime? // Soft delete field
 
   @@index([email, createdAt(sort: Desc)])
   @@map("users")
-  @@schema("auth")
+  @@schema("public")
 }
 
 model Blog {

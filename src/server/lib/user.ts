@@ -9,7 +9,6 @@ export async function createUser(data: Prisma.UserCreateInput): Promise<User> {
       firstName: data.firstName,
       lastName: data.lastName,
       email: data.email,
-      password: data.password,
       plan: data.plan ?? 'FREE',
     },
   });
