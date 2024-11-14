@@ -2,9 +2,7 @@
 import { PrismaClient, type Prisma, type Comment } from '@prisma/client';
 
 const prisma = new PrismaClient();
-export async function createComment(
-  data: Prisma.CommentCreateInput,
-): Promise<Comment> {
+export async function createComment(data: Prisma.CommentCreateInput): Promise<Comment> {
   const comment = await prisma.comment.create({
     data,
   });
@@ -18,10 +16,7 @@ export async function readCommentFromPost(postId: string): Promise<Comment[]> {
   return comments;
 }
 
-export async function updateComment(
-  id: string,
-  data: Prisma.CommentUpdateInput,
-): Promise<Comment | null> {
+export async function updateComment(id: string, data: Prisma.CommentUpdateInput): Promise<Comment | null> {
   const comment = await prisma.comment.update({
     where: { id },
     data,

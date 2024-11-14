@@ -1,11 +1,5 @@
 'use server';
-import {
-  PrismaClient,
-  type Prisma,
-  type Blog,
-  type User,
-  type Role,
-} from '@prisma/client';
+import { PrismaClient, type Prisma, type Blog, type User, type Role } from '@prisma/client';
 import { createUserBlogRole } from './userBlogRole';
 
 const prisma = new PrismaClient();
@@ -17,11 +11,7 @@ const prisma = new PrismaClient();
  * @param user - The user who will own the blog.
  * @returns The ID of the created blog.
  */
-export async function createBlog(
-  name: string,
-  published: boolean,
-  user: User,
-): Promise<string> {
+export async function createBlog(name: string, published: boolean, user: User): Promise<string> {
   const blog: Prisma.BlogCreateInput = {
     name,
     published,
@@ -42,7 +32,9 @@ export async function createBlog(
  * Reads a blog by its ID.
  * @param blogId - The ID of the blog to retrieve.
  * @returns The blog data or null if not found.
- */
+/*************  ✨ Codeium Command ⭐  *************/
+/**
+/******  ae79ff1e-22dd-46e7-bbe5-6d2b7ba1abc2  *******/ */
 export async function readBlogById(blogId: string): Promise<Blog | null> {
   const blog = await prisma.blog.findUnique({
     where: { id: blogId },
@@ -60,10 +52,7 @@ export async function readBlogById(blogId: string): Promise<Blog | null> {
  * @param data - The updated blog data.
  * @returns The updated blog data or null if the blog does not exist.
  */
-export async function updateBlog(
-  blogId: string,
-  data: Prisma.BlogUpdateInput,
-): Promise<Blog | null> {
+export async function updateBlog(blogId: string, data: Prisma.BlogUpdateInput): Promise<Blog | null> {
   const blog = await prisma.blog.update({
     where: { id: blogId },
     data,

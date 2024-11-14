@@ -1,10 +1,5 @@
 'use server';
-import {
-  PrismaClient,
-  type Prisma,
-  type UserBlogRole,
-  Role,
-} from '@prisma/client';
+import { PrismaClient, type Prisma, type UserBlogRole, type Role } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -23,9 +18,7 @@ export async function createUserBlogRole(data: {
   return createUserBlogRole.id;
 }
 
-export async function readAllUserBlogRolesFromUser(
-  userId: string,
-): Promise<UserBlogRole[]> {
+export async function readAllUserBlogRolesFromUser(userId: string): Promise<UserBlogRole[]> {
   return await prisma.userBlogRole.findMany({
     where: { userId },
     include: {
@@ -35,9 +28,7 @@ export async function readAllUserBlogRolesFromUser(
   });
 }
 
-export async function readAllUserBlogRolesFromBlog(
-  blogId: string,
-): Promise<UserBlogRole[]> {
+export async function readAllUserBlogRolesFromBlog(blogId: string): Promise<UserBlogRole[]> {
   return await prisma.userBlogRole.findMany({
     where: { blogId },
     include: {
@@ -47,19 +38,14 @@ export async function readAllUserBlogRolesFromBlog(
   });
 }
 
-export async function updateUserBlogRole(
-  userBlogRoleId: string,
-  newRole: Role,
-): Promise<UserBlogRole> {
+export async function updateUserBlogRole(userBlogRoleId: string, newRole: Role): Promise<UserBlogRole> {
   return await prisma.userBlogRole.update({
     where: { id: userBlogRoleId },
     data: { role: newRole },
   });
 }
 
-export async function removeUserBlogRole(
-  userBlogRoleId: string,
-): Promise<UserBlogRole> {
+export async function removeUserBlogRole(userBlogRoleId: string): Promise<UserBlogRole> {
   return await prisma.userBlogRole.delete({
     where: { id: userBlogRoleId },
   });

@@ -45,10 +45,7 @@ export async function readUserByBlog(blogId: string): Promise<User[]> {
   return users;
 }
 
-export async function updateUser(
-  id: string,
-  data: Prisma.UserUpdateInput,
-): Promise<User | null> {
+export async function updateUser(id: string, data: Prisma.UserUpdateInput): Promise<User | null> {
   const user = await prisma.user.update({
     where: { id },
     data,
