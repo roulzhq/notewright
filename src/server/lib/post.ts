@@ -1,11 +1,5 @@
 'use server';
-import {
-  PrismaClient,
-  type Prisma,
-  type Post,
-  type User,
-  type Blog,
-} from '@prisma/client';
+import { PrismaClient, type Prisma, type Post, type Blog } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -47,10 +41,7 @@ export async function getPostById(postId: Post['id']): Promise<Post | null> {
   return post;
 }
 
-export async function updatePost(
-  postId: Post['id'],
-  data: Prisma.PostUpdateInput,
-): Promise<Post | null> {
+export async function updatePost(postId: Post['id'], data: Prisma.PostUpdateInput): Promise<Post | null> {
   const dateNow: Date = new Date();
 
   const post = await prisma.post.update({

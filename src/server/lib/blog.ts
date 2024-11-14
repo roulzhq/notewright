@@ -31,10 +31,7 @@ export async function createBlog(name: string, published: boolean, user: User): 
 /**
  * Reads a blog by its ID.
  * @param blogId - The ID of the blog to retrieve.
- * @returns The blog data or null if not found.
-/*************  ✨ Codeium Command ⭐  *************/
-/**
-/******  ae79ff1e-22dd-46e7-bbe5-6d2b7ba1abc2  *******/ */
+ * @returns The blog data or null if not found. */
 export async function readBlogById(blogId: string): Promise<Blog | null> {
   const blog = await prisma.blog.findUnique({
     where: { id: blogId },
