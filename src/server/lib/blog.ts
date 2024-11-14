@@ -1,5 +1,5 @@
 'use server';
-import { PrismaClient, type Prisma, type Blog, type User, type Role } from '@prisma/client';
+import { PrismaClient, type Prisma, type Blog, type User, type Role, type Component } from '@prisma/client';
 import { createUserBlogRole } from './userBlogRole';
 
 const prisma = new PrismaClient();
@@ -70,4 +70,42 @@ export async function removeBlog(blogId: string): Promise<Blog | null> {
     },
   });
   return blog;
+}
+
+export async function addComponentToBlog(
+  blogId: string,
+  type: string,
+  content: string,
+  imageUrl?: string,
+  headingLevel?: number,
+) {
+  const component = await prisma.component.create({
+    data: {
+      type,
+      content,
+      imageUrl,
+      headingLevel,
+      order: (await prisma.component.count({ where: { blogId } })) + 1,
+      blog: { connect: { id: blogId } },
+    },
+  });
+  revalidatePath(`/blog/${blogId}`);
+  return component;
+}
+
+export async function deleteComponent(id: number) {
+  const deleted = await prisma.component.delete({
+    where: { id },
+  });
+  revalidatePath(`/blog/${deleted.blogId}`);
+  return deleted;
+}
+
+export async function updateComponent(id: number, content: string, imageUrl?: string, headingLevel?: number) {
+  const updated = await prisma.component.update({
+    where: { id },
+    data: { content, imageUrl, headingLevel },
+  });
+  revalidatePath(`/blog/${updated.blogId}`);
+  return updated;
 }
