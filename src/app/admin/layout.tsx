@@ -1,5 +1,7 @@
 import { type Metadata } from 'next';
+import { Suspense } from 'react';
 
+import FullpageLoader from '$/components/FullpageLoader/FullpageLoader';
 import AdminNavbar from '$/components/admin/Navbar/Navbar';
 import AdminSidebar from '$/components/admin/Sidebar/Sidebar';
 
@@ -13,10 +15,12 @@ export const metadata: Metadata = {
 
 export default function AdminLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <div className="admin">
-      <AdminSidebar />
-      <AdminNavbar />
-      <div className="admin-content">{children}</div>
-    </div>
+    <Suspense fallback={<FullpageLoader />}>
+      <div className="admin">
+        <AdminSidebar />
+        <AdminNavbar />
+        <div className="admin-content">{children}</div>
+      </div>
+    </Suspense>
   );
 }
