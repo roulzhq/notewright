@@ -4,8 +4,7 @@ import { ENV } from '$/env';
 
 const createPrismaClient = () =>
   new PrismaClient({
-    log:
-      ENV.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
+    log: ENV.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
   });
 
 const globalForPrisma = globalThis as unknown as {

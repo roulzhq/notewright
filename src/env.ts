@@ -6,9 +6,7 @@ export const envSchema = z.object({
   SUPABASE_ANON_KEY: z.string(),
 
   // Others
-  NODE_ENV: z
-    .enum(['development', 'test', 'production'])
-    .default('development'),
+  NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
 });
 
 type Env = z.infer<typeof envSchema>;
