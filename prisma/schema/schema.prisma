@@ -54,17 +54,33 @@ model User {
 }
 
 model Blog {
-  id        String         @id @default(cuid())
-  createdAt DateTime       @default(now())
-  published Boolean        @default(false)
-  name      String         @db.VarChar(255)
-  userRoles UserBlogRole[]
-  posts     Post[]
+  id         String         @id @default(cuid())
+  createdAt  DateTime       @default(now())
+  published  Boolean        @default(false)
+  name       String         @db.VarChar(255)
+  userRoles  UserBlogRole[]
+  posts      Post[]
+  components Component[]
 
   deletedAt DateTime? // Soft delete field
 
   @@index([name, createdAt(sort: Desc)])
   @@map("blogs")
+  @@schema("public")
+}
+
+// How do we solve nested components like grids?
+model Component {
+  id           Int           @id @default(autoincrement())
+  type         ComponentType
+  order        Int
+  content      String?
+  imageUrl     String?
+  headingLevel Int?
+  blog         Blog          @relation(fields: [blogId], references: [id])
+  blogId       String
+
+  @@map("components")
   @@schema("public")
 }
 
@@ -119,6 +135,18 @@ enum Plan {
 enum CommentType {
   COMMENT
   REPLY
+
+  @@schema("public")
+}
+
+enum ComponentType {
+  HEADING
+  IMAGE
+  TEXT
+  PINNED_POST
+  COMMENT
+  GRID
+  EMBEDDED
 
   @@schema("public")
 }
