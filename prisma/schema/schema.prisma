@@ -2,12 +2,15 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["multiSchema", "prismaSchemaFolder"]
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DATABASE_DIRECT_URL")
+  schemas   = ["public"]
 }
 
 model Post {
@@ -26,27 +29,28 @@ model Post {
   blog   Blog   @relation(fields: [blogId], references: [id])
   blogId String
 
-  @@index([title])
+  @@index([createdById, createdAt(sort: Desc)])
   @@map("posts")
+  @@schema("public")
 }
 
 model User {
-  id            String         @id @default(cuid())
-  name          String
-  email         String         @unique
-  emailVerified DateTime?
-  password      String
-  image         String?
-  posts         Post[]
-  blogRoles     UserBlogRole[]
-  comments      Comment[]
-  plan          Plan           @default(FREE)
+  id        String         @id @default(cuid())
+  firstName String
+  lastName  String
+  email     String         @unique
+  image     String?
+  posts     Post[]
+  blogRoles UserBlogRole[]
+  comments  Comment[]
+  plan      Plan           @default(FREE)
 
   createdAt DateTime  @default(now())
   deletedAt DateTime? // Soft delete field
 
-  @@index([email, name])
+  @@index([email, createdAt(sort: Desc)])
   @@map("users")
+  @@schema("public")
 }
 
 model Blog {
@@ -59,8 +63,9 @@ model Blog {
 
   deletedAt DateTime? // Soft delete field
 
-  @@index([name])
+  @@index([name, createdAt(sort: Desc)])
   @@map("blogs")
+  @@schema("public")
 }
 
 model Comment {
@@ -76,6 +81,7 @@ model Comment {
   deletedAt DateTime? // Soft delete field
 
   @@map("comments")
+  @@schema("public")
 }
 
 model UserBlogRole {
@@ -89,6 +95,7 @@ model UserBlogRole {
 
   @@unique([userId, blogId]) // One role per blog
   @@map("user_blog_roles")
+  @@schema("public")
 }
 
 enum Role {
@@ -97,15 +104,21 @@ enum Role {
   AUTHOR
   ADMIN
   OWNER
+
+  @@schema("public")
 }
 
 enum Plan {
   FREE
   HOBBY
   PRO
+
+  @@schema("public")
 }
 
 enum CommentType {
   COMMENT
   REPLY
+
+  @@schema("public")
 }
