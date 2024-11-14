@@ -1,11 +1,5 @@
 'use server';
-import {
-  PrismaClient,
-  type Prisma,
-  type Blog,
-  type User,
-  type UserBlogRole,
-} from '@prisma/client';
+import { PrismaClient, type Prisma, type Blog, type User, type UserBlogRole } from '@prisma/client';
 import { createUserBlogRole } from './userBlogRole';
 
 const prisma = new PrismaClient();
