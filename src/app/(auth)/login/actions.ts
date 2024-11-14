@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation';
 
 import { createClient } from '$/utils/supabase/server';
 
-export async function login(formData: FormData) {
+export async function login(nextUrl: string, formData: FormData) {
   const supabase = await createClient();
 
   // type-casting here for convenience
@@ -21,11 +21,11 @@ export async function login(formData: FormData) {
     redirect('/error');
   }
 
-  revalidatePath('/', 'layout');
-  redirect('/');
+  revalidatePath(nextUrl, 'layout');
+  redirect(nextUrl);
 }
 
-export async function signup(formData: FormData) {
+export async function signup(nextUrl: string, formData: FormData) {
   const supabase = await createClient();
 
   // type-casting here for convenience
@@ -41,6 +41,6 @@ export async function signup(formData: FormData) {
     redirect('/error');
   }
 
-  revalidatePath('/', 'layout');
-  redirect('/');
+  revalidatePath(nextUrl, 'layout');
+  redirect(nextUrl);
 }
