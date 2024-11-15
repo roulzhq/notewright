@@ -2,15 +2,10 @@
 
 import { createPost } from '$/server/lib/post';
 
-export async function submit(formData: FormData) {
-  const data = {
-    title: formData.get('title') as string,
-    content: formData.get('content') as string,
-  };
-
+export async function submit(title: string, content: string) {
   await createPost({
-    title: data.title,
-    content: data.content,
+    title,
+    content,
     blog: {
       connect: {
         id: 'cm3imovw7000108l5ernu7joo',
