@@ -1,7 +1,7 @@
 import { type Metadata } from 'next';
 import { Suspense } from 'react';
 
-import FullpageLoader from '$/components/FullpageLoader/FullpageLoader';
+import FullpageLoader from '$/components/shared/FullpageLoader/FullpageLoader';
 import AdminNavbar from '$/components/admin/Navbar/Navbar';
 import AdminSidebar from '$/components/admin/Sidebar/Sidebar';
 

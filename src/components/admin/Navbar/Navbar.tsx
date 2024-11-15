@@ -1,5 +1,5 @@
-import LoginButton from '$/components/LoginButton/LoginButton';
-import LogoutButton from '$/components/LogoutButton/LogoutButton';
+import LoginButton from '$/components/shared/LoginButton/LoginButton';
+import LogoutButton from '$/components/shared/LogoutButton/LogoutButton';
 import { createClient } from '$/utils/supabase/server';
 
 import './Navbar.scss';
