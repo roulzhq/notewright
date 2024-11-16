@@ -22,13 +22,13 @@ export async function createPost(data: Prisma.PostCreateInput): Promise<Post> {
 }
 
 export async function getAllPosts(blog: Blog['id']): Promise<Post[]> {
-  const post = await prisma.post.findMany({
+  const posts = await prisma.post.findMany({
     where: {
-      id: blog,
+      blogId: blog,
     },
   });
 
-  return post;
+  return posts;
 }
 
 export async function getPostById(postId: Post['id']): Promise<Post | null> {

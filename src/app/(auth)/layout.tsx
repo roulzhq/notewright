@@ -1,4 +1,4 @@
-import FullpageLoader from '$/components/FullpageLoader/FullpageLoader';
+import FullpageLoader from '$/components/shared/FullpageLoader/FullpageLoader';
 import { Suspense } from 'react';
 
 export default async function AuthLayout({ children }: React.PropsWithChildren) {
